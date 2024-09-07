@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @apply w-full min-h-screen;
+}
+
+body {
+  @apply font-sans w-full min-h-screen bg-dark text-light;
+}
+
+#__nuxt {
+  @apply w-full min-h-screen grid grid-rows-[auto,8rem] grid-cols-[9rem,auto];
+}
