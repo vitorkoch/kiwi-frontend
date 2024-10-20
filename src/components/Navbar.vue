@@ -1,13 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import {
-  PhChatCircleText,
-  PhHouse,
-  PhMagnifyingGlass,
-  PhBookmarkSimple,
-  PhPlusCircle,
-  PhUserCircle,
-  PhGearSix,
-} from "@phosphor-icons/vue";
+  toggleTheme,
+  loadPreferedTheme,
+  type ITheme,
+  theme,
+} from "@/scripts/theme-switcher";
+let currentTheme = ref<keyof ITheme | undefined>();
+
+function refreshTheme() {
+  currentTheme.value = loadPreferedTheme({
+    shouldBeSetted: false,
+  });
+}
+onMounted(() => {
+  refreshTheme();
+});
 </script>
 
 <template>
@@ -33,7 +40,7 @@ import {
               class="text-4xl hover:scale-105 active:scale-95"
               title="Search"
             >
-              <LucideSearch class="size-8"/>
+              <LucideSearch class="size-8" />
             </NuxtLink>
           </li>
           <li class="hover:scale-110 active:scale-90 duration-300">
@@ -42,7 +49,7 @@ import {
               class="text-4xl hover:scale-105 active:scale-95"
               title="Bookmarks"
             >
-              <LucideBookmark class="size-8"/>
+              <LucideBookmark class="size-8" />
             </a>
           </li>
           <li class="hover:scale-110 active:scale-90 duration-300">
@@ -69,7 +76,7 @@ import {
               class="text-4xl hover:scale-105 active:scale-95"
               title="Profile"
             >
-              <LucideCircleUser class="size-8"/>
+              <LucideCircleUser class="size-8" />
             </a>
           </li>
           <li class="hover:scale-110 active:scale-90 duration-300">
@@ -78,8 +85,22 @@ import {
               class="text-4xl hover:scale-105 active:scale-95"
               title="Settings"
             >
-              <LucideSettings class="size-8"/>
+              <LucideSettings class="size-8" />
             </a>
+          </li>
+          <li>
+            <button
+              type="button"
+              @click="
+                () => {
+                  refreshTheme();
+                  toggleTheme();
+                }
+              "
+            >
+              <LucideSun class="size-8" v-if="currentTheme === theme.dark" />
+              <LucideMoon class="size-8" v-else />
+            </button>
           </li>
         </ul>
       </div>
